@@ -8,7 +8,7 @@
 input::placeholder{
     @apply text-sm  text-gray-600;
 }
-#task-content{
+#taskContent{
     @apply flex justify-between items-center p-2 mt-8 m-auto w-4/6 border-4 border-stone-600 border-dashed;
 }
 
