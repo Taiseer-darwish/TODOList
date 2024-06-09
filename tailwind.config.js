@@ -13,7 +13,11 @@ module.exports = {
         second:['red-300'],
         b1:['stone-900'],
         b2:['stone-600'],
-       }
+       },
+       translate:{
+        x:['-50%'],
+        y:['-50%'],
+       },
     },
   },
   plugins: [],

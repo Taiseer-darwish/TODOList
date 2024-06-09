@@ -13,7 +13,7 @@
     -->
     <title>ToDoLIST</title>
 </head>
-<body class="body  bg-red-100">
+<body class="body relative  bg-red-100">
     <div class="parent relative">
         <div class="top  bg-stone-900 p-10 ">
             <img class="butterfly absolute w-1/5  right-6" src="./photo/png-clipart-butterfly-butterfly-butterflies-float-removebg-preview (1).png" >
@@ -34,9 +34,15 @@
         <div id="parenContent"></div>       
     </div>
     <img class="goma  w-2/4 " src="./photo/peach_and_goma_cats_kawaii_cute-wallpaper-3554x1999-removebg-preview (1).png">
-    
-    <i class="fa-regular fa-circle"></ii9i9i9i9i9i9i9kll>
-    <i class="fa-solid fa-circle-check"></i>
+    <div id="popup" class="popup bg-stone-900 bg-opacity-90 w-full h-full absolute top-0    ">
+        <div class="  bg-neutral-700 bg-opacity-70 w-9/12 rounded-md  border-red-400 border-2 border-solid m-auto absolute top-80 left-1/2 translate-x-x">
+            <h1 id="popup-h1" class="p-3 pt-20 text-red-400 sm:text-sm md:text-lg lg:text-xl font-semibold ">Are you sure to delete Task ?</h1>
+            <div class="flex justify-end mt-12">
+             <button  id="NO">NO</button>
+             <button id="YES">YES</button>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="main.js"></script>
 </html>
