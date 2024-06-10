@@ -47,6 +47,7 @@ console.log(inputText.value);
 
    //Run functions
     showData()
+    
 }
 
    //Run create function
@@ -58,10 +59,14 @@ console.log(inputText.value);
     let content = '';
     for(let i=1; i<TaskData.length; i++){
 
+      let taskId = `task_${i}`;
+       //let iconId = `icon2_${i}`;
+       //<i id="${iconId}" class="fa-solid fa-circle-check"></i line 69
+
         content +=`
          <div id="taskContent" class="taskContent">
                 <div class="X">
-                   <i  onclick="rightMatk()"   id="mark"  class="fa-regular fa-circle"></ii9i9i9i9i9i9i9kll></i>
+                  <i id="${taskId}" onclick="rightMatk('${taskId}')" class="fa-regular fa-circle"></i>
                    <p id="textTask">${TaskData[i].textContent}</p>
                </div>
                 <div class="Y">
@@ -105,11 +110,93 @@ console.log(inputText.value);
      });
 
 
-     //  //right matk
-    //  function rightMatk(){
-    //     let mark = document.getElementById("mark");
-    //     mark.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+     // first way
+    // function rightMatk(taskId) {
+    //   let mark = document.getElementById(taskId);
+    //   let newIcon = document.getElementById(iconId);
+    
+    //   mark.style.display = 'none';
+    //   newIcon.style.display = 'block';
     // }
+
+
+
+    function rightMatk(taskId) {
+      let mark = document.getElementById(taskId);
+      let newIcon = document.createElement('i');
+      newIcon.className = 'fa-solid fa-circle-check';
+      
+      mark.parentNode.replaceChild(newIcon, mark);
+      
+      removeEdite()
+      function removeEdite() {
+        let rEdite = document.getElementById("edite");
+        rEdite.style.display = 'none';
+      }
+      
+      function jj() {
+       // mark.parentNode.replaceChild(mark, newIcon);
+        let rEdite = document.getElementById("edite");
+        rEdite.style.display = 'block';
+      }
+      
+      newIcon.addEventListener("click", function () {
+        jj();
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //  function rightMatk(taskId) {
+    //   let mark = document.getElementById(taskId);
+    //   let newIcon = document.createElement('i');
+    //   newIcon.className = 'fa-solid fa-circle-check';
+      
+    //   mark.parentNode.replaceChild(newIcon, mark);
+      
+
+
+    //     removeEdite()
+    // function removeEdite(){
+    //   let rEdite = document.getElementById("edite");
+    //   rEdite.style.display = 'none';
+
+    //   }
+     
+
+    //   function jj(){
+    //   mark.parentNode.replaceChild( mark,newIcon);
+    //   rEdite.style.display = 'block';
+
+    //   }
+    //   newIcon.addEventListener("click",function(){
+    //     jj();
+      
+    //    });
+
+    // }
+
+ 
+
 
 
 
