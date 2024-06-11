@@ -125,18 +125,19 @@ let tNotcomplet;
       popup.style.display='none';
      });
 
+
+   // ** function rightMatk **
     function rightMatk(taskId, editId) {
+
   let markIcon = document.getElementById(taskId);
   let soliedIcon = document.createElement('i');
   soliedIcon.className = 'fa-solid fa-circle-check';
 
   //replace markIcon icon by solid icon
   markIcon.parentNode.replaceChild(soliedIcon, markIcon);
-
   z+=1;
   tNotcomplet= w - z;
   TextCount.textContent = `You Have Task (${tNotcomplet}) To Complete`;
-
 
   // remove edit icon when complete task
   removeEdite();
@@ -162,20 +163,22 @@ let tNotcomplet;
     tNotcomplet= w - z;
     TextCount.textContent = `You Have Task (${tNotcomplet}) To Complete`;
   });
-
-  localStorage.setItem('TASK',JSON.stringify(TaskData));
  
 }
+// end function rightmark--------------------------------
 
-let TextCount = document.createElement("P");
-TextCount.className = 'TextCount';
 
-function CountTextContent(){
-  TextCount.textContent=(`You Have Task (${w}) To Complete`);
-}
-CountTextContent();
-
-count.appendChild(TextCount);
+   //create TextCount
+   let TextCount = document.createElement("P");
+   TextCount.className = 'TextCount';
+   //function textCount
+   function CountTextContent(){
+    TextCount.textContent=(`You Have Task (${w}) To Complete`);
+}   
+   //run 
+   CountTextContent();
+   //inheart
+   count.appendChild(TextCount);
 
 
 
