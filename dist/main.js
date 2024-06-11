@@ -1,15 +1,20 @@
 let inputText = document.getElementById("addText");
 addButton = document.getElementById("addButton");
 parenContent = document.getElementById("parenContent");
+count = document.getElementById("count");
 popup = document.getElementById("popup");
 YESButton = document.getElementById("YES");
 NOButton = document.getElementById("NO");
 
 let x ='create';
 let y;
+let z=0;
+let w;
+let tNotcomplet;
 
 
-console.log(inputText.value);
+
+//console.log(inputText.value);
 
   // first step put all data in array
      let TaskData;
@@ -57,20 +62,22 @@ console.log(inputText.value);
    // showData
     function showData(){
     let content = '';
+    w = TaskData.length -1;
+    console.log(tNotcomplet);
     for(let i=1; i<TaskData.length; i++){
 
       let taskId = `task_${i}`;
-       //let iconId = `icon2_${i}`;
-       //<i id="${iconId}" class="fa-solid fa-circle-check"></i line 69
-
+      let editId = `edit_${i}`;
+    
         content +=`
          <div id="taskContent" class="taskContent">
                 <div class="X">
-                  <i id="${taskId}" onclick="rightMatk('${taskId}')" class="fa-regular fa-circle"></i>
+                <div>${i}</div>  
+                  <i id="${taskId}" onclick="rightMatk('${taskId}', '${editId}')" class="fa-regular fa-circle"></i>
                    <p id="textTask">${TaskData[i].textContent}</p>
                </div>
                 <div class="Y">
-                   <i onclick="edite(${i})" id="edite" class="fa-solid fa-pencil"></i>
+                   <i onclick="edite(${i})" id="${editId}" class="fa-solid fa-pencil"></i>
                    <i onclick="PopupFUN()" id="deletei" class="fa-solid fa-trash"></i> 
                 </div>
                </div>
@@ -88,7 +95,7 @@ console.log(inputText.value);
         x='edite';
     }
 
-     //Delete data 
+     //function Delete data 
       function deleteData(i) {
         TaskData.splice(i,1)
         localStorage.TASK=JSON.stringify(TaskData);
@@ -110,40 +117,50 @@ console.log(inputText.value);
      });
 
 
-     // first way
-    // function rightMatk(taskId) {
-    //   let mark = document.getElementById(taskId);
-    //   let newIcon = document.getElementById(iconId);
+    function rightMatk(taskId, editId) {
+  let markIcon = document.getElementById(taskId);
+  let soliedIcon = document.createElement('i');
+  soliedIcon.className = 'fa-solid fa-circle-check';
+
+  //replace markIcon icon by solid icon
+  markIcon.parentNode.replaceChild(soliedIcon, markIcon);
+
+  z+=1;
+  tNotcomplet= w - z;
+  TextCount.textContent = `You Have Task (${tNotcomplet}) To Complete`;
+
+
+  // remove edit icon when complete task
+  removeEdite();
+
+  function removeEdite() {
+    let rEdite = document.getElementById(editId);
+    rEdite.style.display = 'none';
+  }
+
+  function jj() {
+    //replace solid icon by markIcon icon
+    soliedIcon.parentNode.replaceChild(markIcon, soliedIcon);
+
+    //show edit icon 
+    let rEdite = document.getElementById(editId);
+    rEdite.style.display = 'block';
     
-    //   mark.style.display = 'none';
-    //   newIcon.style.display = 'block';
-    // }
+  }
+  //run function when click on solied icon
+  soliedIcon.addEventListener("click", function () {
+    jj();
+    z=z-1;
+    tNotcomplet= w - z;
+    TextCount.textContent = `You Have Task (${tNotcomplet}) To Complete`;
+  });
 
+}
 
-
-    function rightMatk(taskId) {
-      let mark = document.getElementById(taskId);
-      let newIcon = document.createElement('i');
-      newIcon.className = 'fa-solid fa-circle-check';
-      
-      mark.parentNode.replaceChild(newIcon, mark);
-      
-      removeEdite()
-      function removeEdite() {
-        let rEdite = document.getElementById("edite");
-        rEdite.style.display = 'none';
-      }
-      
-      function jj() {
-       // mark.parentNode.replaceChild(mark, newIcon);
-        let rEdite = document.getElementById("edite");
-        rEdite.style.display = 'block';
-      }
-      
-      newIcon.addEventListener("click", function () {
-        jj();
-      });
-    }
+let TextCount = document.createElement("P");
+TextCount.className = 'TextCount';
+TextCount.textContent=(`You Have Task (${w}) To Complete`);
+count.appendChild(TextCount);
 
 
 
@@ -153,47 +170,7 @@ console.log(inputText.value);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //  function rightMatk(taskId) {
-    //   let mark = document.getElementById(taskId);
-    //   let newIcon = document.createElement('i');
-    //   newIcon.className = 'fa-solid fa-circle-check';
-      
-    //   mark.parentNode.replaceChild(newIcon, mark);
-      
-
-
-    //     removeEdite()
-    // function removeEdite(){
-    //   let rEdite = document.getElementById("edite");
-    //   rEdite.style.display = 'none';
-
-    //   }
-     
-
-    //   function jj(){
-    //   mark.parentNode.replaceChild( mark,newIcon);
-    //   rEdite.style.display = 'block';
-
-    //   }
-    //   newIcon.addEventListener("click",function(){
-    //     jj();
-      
-    //    });
-
-    // }
+    
 
  
 
