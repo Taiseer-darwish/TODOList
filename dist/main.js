@@ -52,6 +52,8 @@ let tNotcomplet;
 
    //Run functions
     showData()
+    CountTextContent()
+
     
 }
 
@@ -63,7 +65,7 @@ let tNotcomplet;
     function showData(){
     let content = '';
     w = TaskData.length -1;
-    console.log(tNotcomplet);
+
     for(let i=1; i<TaskData.length; i++){
 
       let taskId = `task_${i}`;
@@ -78,11 +80,12 @@ let tNotcomplet;
                </div>
                 <div class="Y">
                    <i onclick="edite(${i})" id="${editId}" class="fa-solid fa-pencil"></i>
-                   <i onclick="PopupFUN()" id="deletei" class="fa-solid fa-trash"></i> 
+                   <i onclick="del(${i})" id="deletei" class="fa-solid fa-trash"></i> 
                 </div>
                </div>
              `
         }
+
       parenContent.innerHTML= content;
 }
     //Run showData 
@@ -106,6 +109,11 @@ let tNotcomplet;
      function PopupFUN() {
        popup.style.display='block';
     }
+
+    function del(i){
+      PopupFUN();
+      y=i;
+  }
      //deleteData onclick-No
      NOButton.addEventListener("click", function(){
        popup.style.display='none';
@@ -113,9 +121,9 @@ let tNotcomplet;
 
      YESButton.addEventListener("click",function(){
       deleteData(y);
-        popup.style.display='none';
+      CountTextContent();
+      popup.style.display='none';
      });
-
 
     function rightMatk(taskId, editId) {
   let markIcon = document.getElementById(taskId);
@@ -155,13 +163,19 @@ let tNotcomplet;
     TextCount.textContent = `You Have Task (${tNotcomplet}) To Complete`;
   });
 
+  localStorage.setItem('TASK',JSON.stringify(TaskData));
+ 
 }
 
 let TextCount = document.createElement("P");
 TextCount.className = 'TextCount';
-TextCount.textContent=(`You Have Task (${w}) To Complete`);
-count.appendChild(TextCount);
 
+function CountTextContent(){
+  TextCount.textContent=(`You Have Task (${w}) To Complete`);
+}
+CountTextContent();
+
+count.appendChild(TextCount);
 
 
 
