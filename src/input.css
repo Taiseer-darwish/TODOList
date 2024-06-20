@@ -17,7 +17,8 @@ input::placeholder{
 }
 
 
-.x{
+.x,
+.y{
     @apply flex justify-center items-center p-1;
 }
 
