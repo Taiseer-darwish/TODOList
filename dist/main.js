@@ -5,7 +5,6 @@ count = document.getElementById("count");
 popup = document.getElementById("popup");
 YESButton = document.getElementById("YES");
 NOButton = document.getElementById("NO");
-let mode ='create';
 let tasksNum;
 let y;
 
@@ -32,14 +31,8 @@ let y;
        };
 
     if(textContent != ''){
-      if(mode === 'create'){
         //push data to array
         TaskData.push(task);
-      }else{
-        //edit elelment
-       TaskData[y]=task;
-       mode ='create';
-      }
     }     
     
     //localStorage s-1
@@ -117,7 +110,6 @@ let y;
      let p = document.getElementById(paragraph);
      let text = TaskData[i].textContent;
 
-
      if(TaskData[i].edit){
 
      //create input
@@ -175,16 +167,16 @@ let y;
      });
 
      function updateTasksCount() {
-  let incompleteTasks = 0;
+     let incompleteTasks = 0;
 
-  for (let i = 0; i < TaskData.length; i++) {
-    if (!TaskData[i].status) {
+     for (let i = 0; i < TaskData.length; i++) {
+      if (!TaskData[i].status) {
       incompleteTasks++;
-    }
+     }
   }
 
-  tasksNum = incompleteTasks;
-  CountTextContent();
+      tasksNum = incompleteTasks;
+      CountTextContent();
 }
 
    //create TextCount
