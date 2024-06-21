@@ -42,8 +42,7 @@ let y;
     inputText.value='';
 
    //Run functions
-    showData()
-    CountTextContent()
+   run() 
 
 }
 
@@ -54,6 +53,8 @@ let y;
    // showData
     function showData(){
     let content = '';
+
+    //the variable (tasksNum) = number of all tasks 
     tasksNum = TaskData.length;
     let incompleteTasks = 0;
 
@@ -64,12 +65,14 @@ let y;
       let iconClass;
       let editClass;
 
+      //Depending on the state of the object, the following is done
       if (TaskData[i].status) {
         iconClass = "fa-regular fa-circle";
         editClass = "fa-solid fa-pencil";
       } else {
         iconClass = "fa-solid fa-circle-check";
         editClass = "";
+        //Add one to the number of tasks that were notcompleted
         incompleteTasks++;
       }  
 
@@ -89,9 +92,11 @@ let y;
                </div>
              `
         }
+
+        //Update value the (tasksNum )
         tasksNum -= incompleteTasks;
 
-      parenContent.innerHTML= content;
+       parenContent.innerHTML= content;
 }
     //Run showData 
      showData()
@@ -166,23 +171,27 @@ let y;
       popup.style.display='none';
      });
 
-     function updateTasksCount() {
-     let incompleteTasks = 0;
+// i dont need it -----------------------------------------------
+//      function updateTasksCount() {
+//       let incompleteTasks = 0;
+ 
+//       for (let i = 0; i < TaskData.length; i++) {
+//       if (!TaskData[i].status) {
+//        incompleteTasks++;
+//      }
+//    }
+ 
+//        tasksNum = incompleteTasks;
+//        CountTextContent();
+//  }
+//----------------------------------------------------------------
 
-     for (let i = 0; i < TaskData.length; i++) {
-      if (!TaskData[i].status) {
-      incompleteTasks++;
-     }
-  }
-
-      tasksNum = incompleteTasks;
-      CountTextContent();
-}
 
    //create TextCount
    let TextCount = document.createElement("P");
    TextCount.className = 'TextCount';
-   //function textCount
+
+   //function CountTextContent
    function CountTextContent(){
     TextCount.textContent=(`You Have (${tasksNum}) Task To Complete`);
 }   
@@ -190,6 +199,13 @@ let y;
    CountTextContent();
    //inheart
    count.appendChild(TextCount);
+
+   //Run functions
+   function run() {
+    showData()
+    CountTextContent()
+   }
+   
 
 
 
