@@ -134,6 +134,11 @@ let y;
      let input = document.createElement("input");
      input.setAttribute("type", "text");
      input.setAttribute("value", text);
+     input.style.background="transparent";
+     input.style.border = "3px solid black";
+     input.style.padding = "2px 6px";
+     input.style.width= "60%";
+     input.focus();
 
      //replase paragraph by iput
      p.parentNode.replaceChild(input, p);
