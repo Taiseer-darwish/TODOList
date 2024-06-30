@@ -43,14 +43,24 @@ let y;
 
    //Run functions
    run() 
-
 }
-
    //Run create function
     addButton.addEventListener("click",create);
 
 
-   // showData
+//create TextCount
+   let TextCount = document.createElement("P");
+   TextCount.className = 'TextCount';
+   TextCount.textContent=(`You Have (0) Task To Complete`);
+   //inheart
+   count.appendChild(TextCount);
+//function CountTextContent to call it easly
+   function CountTextContent(){
+    TextCount.textContent=(`You Have (${tasksNum}) Task To Complete`);
+}   
+
+   
+// start function showData
     function showData(){
     let content = '';
 
@@ -92,23 +102,26 @@ let y;
                </div>
              `
         }
+        parenContent.innerHTML= content;
 
-        //Update value the (tasksNum )
+        //Update value the (tasksNum)
         tasksNum -= incompleteTasks;
-
-       parenContent.innerHTML= content;
+        CountTextContent()
+     
 }
     //Run showData 
      showData()
 
+
+//toggleStatus onclick div class="icon"     
      function toggleStatus(i) {
       TaskData[i].status = !TaskData[i].status;
       localStorage.setItem('TASK', JSON.stringify(TaskData));
-
       showData();
-    }
+}
 
-      //function Edit data
+
+// start function Edit data
       function edite(i,paragraph,editId) {
          
      //call paragraph 
@@ -144,63 +157,34 @@ let y;
     }}
 
 
-     //function Delete data 
+//create function Delete data 
       function deleteData(i) {
         TaskData.splice(i,1)
         localStorage.TASK=JSON.stringify(TaskData);
-        y=i;
-        showData()
+        showData()  
     }  
-     //getpopup
+
+//function getpopup
      function PopupFUN() {
        popup.style.display='block';
     }
 
+//run function Deletedata after show PopupFUN;
     function del(i){
       PopupFUN();
-      y=i;
-  }
-     //deleteData onclick-No
-     NOButton.addEventListener("click", function(){
-       popup.style.display='none';
-     });
-
-     YESButton.addEventListener("click",function(){
-      deleteData(y);
-      CountTextContent();
+    //deleteData onclick-YES
+      YESButton.addEventListener("click",function(){
+        deleteData(i);
+        CountTextContent();
+        popup.style.display='none';
+       });
+    //dont deleteData onclick-No
+      NOButton.addEventListener("click", function(){
       popup.style.display='none';
-     });
+    });
+  }
 
-// i dont need it -----------------------------------------------
-//      function updateTasksCount() {
-//       let incompleteTasks = 0;
- 
-//       for (let i = 0; i < TaskData.length; i++) {
-//       if (!TaskData[i].status) {
-//        incompleteTasks++;
-//      }
-//    }
- 
-//        tasksNum = incompleteTasks;
-//        CountTextContent();
-//  }
-//----------------------------------------------------------------
-
-
-   //create TextCount
-   let TextCount = document.createElement("P");
-   TextCount.className = 'TextCount';
-
-   //function CountTextContent
-   function CountTextContent(){
-    TextCount.textContent=(`You Have (${tasksNum}) Task To Complete`);
-}   
-   //run 
-   CountTextContent();
-   //inheart
-   count.appendChild(TextCount);
-
-   //Run functions
+//Run functions
    function run() {
     showData()
     CountTextContent()
