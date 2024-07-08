@@ -13,36 +13,37 @@ let y;
      let TaskData;
 
    // handel the (localStorage s-2) to save data when reload
-      if(localStorage.TASK != null){
-          TaskData = JSON.parse(localStorage.TASK)
-      }else{
-        TaskData=[];
+      if (localStorage.TASK != null) {
+        let datedata = JSON.parse(localStorage.TASK);
+        TaskData = datedata.map((item) => ({
+          ...item,
+          date: new Date(item.date) // تحويل القيمة إلى كائن Date
+        }));
+      } else {
+        TaskData = [];
       }
 
-   // first function create function
-   function create(){
+// first function create function
+ function create(){
     let textContent =inputText.value;
 
     // create object
     let task = {
        textContent: textContent,
        status : true,
-       edit: true,
+       date: new Date(),
        };
 
     if(textContent != ''){
         //push data to array
         TaskData.push(task);
     }     
-    
     //localStorage s-1
     localStorage.setItem('TASK',JSON.stringify(TaskData));
-
     //cleardata
     inputText.value='';
-
    //Run functions
-   run() 
+    run() 
 }
    //Run create function
     addButton.addEventListener("click",create);
@@ -59,7 +60,7 @@ let y;
     TextCount.textContent=(`You Have (${tasksNum}) Task To Complete`);
 }   
 
-   
+
 // start function showData
     function showData(){
     let content = '';
@@ -86,23 +87,38 @@ let y;
         incompleteTasks++;
       }  
 
+      let thedate = TaskData[i].date;
+      console.log(thedate );
+      let formattedDate = '';
+    
+      if (thedate) {
+        let day = thedate.getDate();
+        let month = thedate.getMonth() + 1; 
+        let year = thedate.getFullYear();
+        formattedDate = `${day}-${month}-${year}`;
+      }
+      console.log(thedate );
+
         content +=`
          <div id="taskContent" class="taskContent">
-                <div class="X">
-                <div>${i+1}</div>
+              <div class="X" id"x">
                    <div class="icon" onclick="toggleStatus(${i})"> 
                    <i class="${iconClass}"></i>
                    </div> 
                    <p id="${paragraph}">${TaskData[i].textContent}</p>
                </div>
                 <div class="Y">
+                <div class="icons">
                    <i onclick="edite('${i}','${paragraph}','${editId}')" id="${editId}" class="${editClass}"></i>
                    <i onclick="del(${i})" id="deleteid" class="fa-solid fa-trash"></i> 
+                   </div>
+                   <div class="date">${formattedDate}</div>
                 </div>
-               </div>
+                </div> 
              `
         }
         parenContent.innerHTML= content;
+
 
         //Update value the (tasksNum)
         tasksNum -= incompleteTasks;
@@ -111,6 +127,7 @@ let y;
 }
     //Run showData 
      showData()
+
 
 
 //toggleStatus onclick div class="icon"     
@@ -122,45 +139,41 @@ let y;
 
 
 // start function Edit data
-      function edite(i,paragraph,editId) {
-         
-     //call paragraph 
-     let p = document.getElementById(paragraph);
-     let text = TaskData[i].textContent;
+function edite(i, paragraph, editId) {
+  // call paragraph
+  let p = document.getElementById(paragraph);
+  let text = TaskData[i].textContent;
 
-     if(TaskData[i].edit){
+    // create input
+    let input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("value", text);
+    input.style.background = "transparent";
+    input.style.border = "3px solid black";
+    input.style.padding = "2px 6px";
+    input.style.width = "100%";
+    input.focus();
 
-     //create input
-     let input = document.createElement("input");
-     input.setAttribute("type", "text");
-     input.setAttribute("value", text);
-     input.style.background="transparent";
-     input.style.border = "3px solid black";
-     input.style.padding = "2px 6px";
-     input.style.width= "60%";
-     input.focus();
+    // replace paragraph by input
+    p.parentNode.replaceChild(input, p);
 
-     //replase paragraph by iput
-     p.parentNode.replaceChild(input, p);
+    // call edit icon and create new icon
+    let editIcon = document.getElementById(editId);
+    let soliedIcon = document.createElement('i');
+    soliedIcon.className = 'fa-solid fa-circle-check';
 
-     //call edit icon and create new icon
-     let editIcon = document.getElementById(editId);
-     let soliedIcon = document.createElement('i');
-     soliedIcon.className = 'fa-solid fa-circle-check';
-
-     //replace editIcon icon 
-     editIcon.parentNode.replaceChild(soliedIcon, editIcon);
-
-      soliedIcon.addEventListener("click", function (i) {
-        //toggle editobject status To change what is needed
-        TaskData[i].edit= !TaskData[i].edit;
-        input.parentNode.replaceChild(p,input);
-        p.innerHTML = input.value;
-        soliedIcon.parentNode.replaceChild(editIcon, soliedIcon);  
-        localStorage.setItem("TASK", JSON.stringify(TaskData));
-      })
-    }}
-
+    // replace editIcon icon
+    editIcon.parentNode.replaceChild(soliedIcon, editIcon);
+    soliedIcon.addEventListener("click", function () {
+      // toggle edit object status to change what is needed
+      
+      input.parentNode.replaceChild(p, input);
+      TaskData[i].textContent =input.value;
+      p.innerHTML = TaskData[i].textContent ;
+      soliedIcon.parentNode.replaceChild(editIcon, soliedIcon);
+      localStorage.setItem("TASK", JSON.stringify(TaskData));
+    })
+  } 
 
 //create function Delete data 
       function deleteData(i) {
@@ -194,9 +207,6 @@ let y;
     showData()
     CountTextContent()
    }
-   
-
-
 
 
     
