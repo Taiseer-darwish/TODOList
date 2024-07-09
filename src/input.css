@@ -27,7 +27,7 @@ p{
 }
 
 i{
-    @apply mr-1 sm:mr-1 md:mr-2 lg:mr-3 text-red-400 font-bold cursor-pointer;
+    @apply mr-1 sm:mr-1 md:mr-2 lg:mr-3 text-red-400 font-bold text-xs sm:text-xs md:text-xl lg:text-2xl cursor-pointer pl-1;
 }
 
 #PTask{

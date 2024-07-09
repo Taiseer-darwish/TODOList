@@ -17,7 +17,7 @@ let y;
         let datedata = JSON.parse(localStorage.TASK);
         TaskData = datedata.map((item) => ({
           ...item,
-          date: new Date(item.date) // تحويل القيمة إلى كائن Date
+          date: new Date(item.date)
         }));
       } else {
         TaskData = [];
@@ -175,32 +175,33 @@ function edite(i, paragraph, editId) {
     })
   } 
 
-//create function Delete data 
-      function deleteData(i) {
-        TaskData.splice(i,1)
-        localStorage.TASK=JSON.stringify(TaskData);
-        showData()  
-    }  
-
-//function getpopup
-     function PopupFUN() {
-       popup.style.display='block';
-    }
-
-//run function Deletedata after show PopupFUN;
-    function del(i){
-      PopupFUN();
-    //deleteData onclick-YES
-      YESButton.addEventListener("click",function(){
-        deleteData(i);
-        CountTextContent();
-        popup.style.display='none';
-       });
-    //dont deleteData onclick-No
-      NOButton.addEventListener("click", function(){
-      popup.style.display='none';
-    });
+     //function Delete data 
+     function deleteData(i) {
+      TaskData.splice(i,1)
+      localStorage.TASK=JSON.stringify(TaskData);
+      y=i;
+      showData()
+  }  
+   //getpopup
+   function PopupFUN() {
+     popup.style.display='block';
   }
+
+  function del(i){
+    PopupFUN();
+    y=i;
+}
+   //deleteData onclick-No
+   NOButton.addEventListener("click", function(){
+     popup.style.display='none';
+   });
+
+   YESButton.addEventListener("click",function(){
+    deleteData(y);
+    CountTextContent();
+    popup.style.display='none';
+   });
+
 
 //Run functions
    function run() {
